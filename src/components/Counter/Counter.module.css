@@ -1,0 +1,34 @@
+.value {
+  color: #fff;
+  font-size: 40px;
+  margin: 0;
+}
+.limitValue {
+  color: #c20d7f;
+  font-size: 50px;
+  font-weight: bold;
+}
+
+/* set counter styles */
+
+.valueContainer {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+}
+.outputSet {
+  display: grid;
+  height: 100px;
+  margin: 15px;
+  background: #1d82e8;
+  box-sizing: border-box;
+  border-radius: 10px;
+  padding: 15px;
+}
+.input {
+  height: fit-content;
+  width: 80px;
+}
+.valueTitle {
+  margin: 0;
+}

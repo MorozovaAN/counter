@@ -1,0 +1,24 @@
+.container {
+  border: 3px solid #1d82e8;
+  width: 300px;
+  border-radius: 10px;
+}
+.display {
+  height: 100px;
+  margin: 15px;
+  background: #1d82e8;
+  box-sizing: border-box;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.buttonsContainer {
+  box-sizing: border-box;
+  border: 3px solid #1d82e8;
+  border-radius: 10px;
+  margin: 15px;
+  padding: 15px;
+  display: flex;
+  justify-content: space-around;
+}
