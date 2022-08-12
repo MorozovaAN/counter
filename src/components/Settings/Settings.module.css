@@ -14,22 +14,26 @@
   row-gap: 10px;
 }
 .input {
-  height: fit-content;
   width: 80px;
   border-radius: 7px;
-  border: none;
   outline: none;
-  height: 22px;
+  height: 26px;
   text-align: center;
   padding-left: 15px;
   box-sizing: border-box;
   color: #1d82e8;
   font-weight: 600;
   font-size: 20px;
+
+  border: 3px solid #48e855;
 }
 .valueTitle {
   margin: 0;
   color: #fff;
   font-weight: 600;
   font-size: 20px;
+}
+.incorrectValue {
+  color: #ff3b50;
+  border: 3px solid #ff5366;
 }

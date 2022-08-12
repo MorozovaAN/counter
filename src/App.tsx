@@ -4,28 +4,26 @@ import { Settings } from "./components/Settings/Settings";
 import { useState } from "react";
 
 export const App = () => {
-  const [count, setCount] = useState(0);
+  const initStateCount = localStorage.getItem("count")
+    ? localStorage.getItem("count")
+    : 0;
+  const [count, setCount] = useState(Number(initStateCount));
   const [startCount, setStartCount] = useState(0);
   const [maxCount, setMaxCount] = useState(0);
 
   const setCounterValue = (value: number) => {
     setCount(value);
   };
-  const setStartCounterValue = (value: number) => {
-    setStartCount(value);
+
+  const setCounterSettings = (max: number, start: number) => {
+    setMaxCount(max);
+    setStartCount(start);
+    setCount(start);
   };
-  const setMaxCounterValue = (value: number) => {
-    setMaxCount(value);
-  };
+
   return (
     <div className={s.container}>
-      <Settings
-        setCounterValue={setCounterValue}
-        setStartCounterValue={setStartCounterValue}
-        setMaxCounterValue={setMaxCounterValue}
-        startCount={startCount}
-        maxCount={maxCount}
-      />
+      <Settings setCounterSettings={setCounterSettings} />
       <Counter
         count={count}
         startCount={startCount}

@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect } from "react";
 import s from "./Counter.module.css";
 import commonS from "../СommonStyles.module.css";
 import { Button } from "../common/Button/Button";
@@ -14,11 +14,15 @@ export const Counter: FC<CounterType> = ({
   maxCount,
   setCounterValue,
 }) => {
+  useEffect(() => {
+    localStorage.setItem("count", JSON.stringify(count));
+  }, [count]);
+
   const incDisabled = count === maxCount;
   const resetDisabled = count === startCount;
 
   const valueClasses = `${
-    count === maxCount && count !== 0 ? s.limitValue : s.value
+    count >= maxCount && count !== 0 ? s.limitValue : s.value
   }`;
 
   const increment = () => {
