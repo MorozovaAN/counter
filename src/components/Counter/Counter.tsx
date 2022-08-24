@@ -36,7 +36,6 @@ export const Counter: FC<CounterType> = ({
   const reset = () => {
     setCounterValue(startCount);
   };
-  console.log(Boolean(""));
   return (
     <div className={commonS.container}>
       <div className={commonS.display}>

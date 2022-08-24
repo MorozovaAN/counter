@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, FC, useEffect } from "react";
+import React, { ChangeEvent, FC } from "react";
 import { Button } from "../common/Button/Button";
 import commonS from "../СommonStyles.module.css";
 import s from "./Settings.module.css";
@@ -20,13 +20,15 @@ export const Settings: FC<SettingsType> = (props) => {
     changeStartSettingsValue,
   } = props;
 
-  const incDisabled =
+  const setDisabled =
     maxSettingsValue < 1 ||
     startSettingsValue < 0 ||
-    startSettingsValue >= maxSettingsValue;
+    startSettingsValue >= maxSettingsValue ||
+    (startSettingsValue === Number(localStorage.getItem("startValue")) &&
+      maxSettingsValue === Number(localStorage.getItem("maxValue")));
 
   const maxValueClasses =
-    maxSettingsValue < 0 ? `${s.input} ${s.incorrectValue}` : s.input;
+    maxSettingsValue < 1 ? `${s.input} ${s.incorrectValue}` : s.input;
   const startValueClasses =
     startSettingsValue < 0 ||
     (startSettingsValue >= maxSettingsValue && maxSettingsValue > 0)
@@ -75,7 +77,7 @@ export const Settings: FC<SettingsType> = (props) => {
         <Button
           title={"set"}
           callBack={setStartCounterValueHandler}
-          disabled={incDisabled}
+          disabled={setDisabled}
         />
       </div>
     </div>

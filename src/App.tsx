@@ -7,17 +7,28 @@ export const App = () => {
   const initStateCount = localStorage.getItem("count")
     ? Number(localStorage.getItem("count"))
     : 0;
-  const initStartValue = localStorage.getItem("startValue")
-    ? Number(localStorage.getItem("startValue"))
-    : 0;
-  const initMaxValue = localStorage.getItem("maxValue")
-    ? Number(localStorage.getItem("maxValue"))
-    : 0;
+  const initInstruction = localStorage.getItem("count")
+    ? ""
+    : "Enter values and press 'set'";
 
-  const [count, setCount] = useState<number>(initStateCount);
-  const [instruction, setInstruction] = useState("");
-  const [startCount, setStartCount] = useState(0);
-  const [maxCount, setMaxCount] = useState(0);
+  let initStartValue = 0;
+  let initMaxValue = 1;
+  let initStartCount = 0;
+  let initMaxCount = 0;
+
+  if (localStorage.getItem("startValue")) {
+    initStartValue = Number(localStorage.getItem("startValue"));
+    initMaxValue = Number(localStorage.getItem("maxValue"));
+    initStartCount = Number(localStorage.getItem("startValue"));
+    initMaxCount = Number(localStorage.getItem("maxValue"));
+  }
+
+  const [count, setCount] = useState(initStateCount);
+  const [instruction, setInstruction] = useState(initInstruction);
+
+  const [startCount, setStartCount] = useState(initStartCount);
+  const [maxCount, setMaxCount] = useState(initMaxCount);
+
   const [maxSettingsValue, setMaxSettingsValue] = useState(initMaxValue);
   const [startSettingsValue, setStartSettingsValue] = useState(initStartValue);
 
@@ -33,21 +44,21 @@ export const App = () => {
   };
 
   useEffect(() => {
-    localStorage.setItem("maxValue", JSON.stringify(maxSettingsValue));
-  }, [maxSettingsValue]);
+    localStorage.setItem("maxValue", JSON.stringify(maxCount));
+  }, [maxCount]);
   useEffect(() => {
-    localStorage.setItem("startValue", JSON.stringify(startSettingsValue));
-  }, [startSettingsValue]);
+    localStorage.setItem("startValue", JSON.stringify(startCount));
+  }, [startCount]);
 
   const changeMaxSettingsValue = (value: number) => {
     setMaxSettingsValue(value);
-    value <= startSettingsValue
+    value <= startSettingsValue || value < 0
       ? setInstruction("Incorrect value!")
       : setInstruction("Enter values and press 'set'");
   };
   const changeStartSettingsValue = (value: number) => {
     setStartSettingsValue(value);
-    value >= maxSettingsValue
+    value >= maxSettingsValue || value < 0
       ? setInstruction("Incorrect value!")
       : setInstruction("Enter values and press 'set'");
   };
