@@ -4,45 +4,47 @@ import commonS from "../СommonStyles.module.css";
 import s from "./Settings.module.css";
 
 type SettingsType = {
+  maxSettingsValue: number;
+  startSettingsValue: number;
   setCounterSettings: (max: number, start: number) => void;
+  changeMaxSettingsValue: (value: number) => void;
+  changeStartSettingsValue: (value: number) => void;
 };
 
-export const Settings: FC<SettingsType> = ({ setCounterSettings }) => {
-  const initStartValue = localStorage.getItem("startValue")
-    ? Number(localStorage.getItem("startValue"))
-    : 0;
-  const initMaxValue = localStorage.getItem("maxValue")
-    ? Number(localStorage.getItem("maxValue"))
-    : 0;
+export const Settings: FC<SettingsType> = (props) => {
+  const {
+    maxSettingsValue,
+    startSettingsValue,
+    setCounterSettings,
+    changeMaxSettingsValue,
+    changeStartSettingsValue,
+  } = props;
 
-  const [maxValue, setMaxValue] = useState(initMaxValue);
-  const [startValue, setStartValue] = useState(initStartValue);
-
-  const incDisabled = maxValue < 1 || startValue < 0 || startValue >= maxValue;
+  const incDisabled =
+    maxSettingsValue < 1 ||
+    startSettingsValue < 0 ||
+    startSettingsValue >= maxSettingsValue;
 
   const maxValueClasses =
-    maxValue < 0 ? `${s.input} ${s.incorrectValue}` : s.input;
+    maxSettingsValue < 0 ? `${s.input} ${s.incorrectValue}` : s.input;
   const startValueClasses =
-    startValue < 0 || (startValue >= maxValue && maxValue > 0)
+    startSettingsValue < 0 ||
+    (startSettingsValue >= maxSettingsValue && maxSettingsValue > 0)
       ? `${s.input} ${s.incorrectValue}`
       : s.input;
 
-  useEffect(() => {
-    localStorage.setItem("maxValue", JSON.stringify(maxValue));
-  }, [maxValue]);
-  useEffect(() => {
-    localStorage.setItem("startValue", JSON.stringify(startValue));
-  }, [startValue]);
-
-  const setMaxValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setMaxValue(Number(e.currentTarget.value));
+  const changeMaxSettingsValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    changeMaxSettingsValue(Number(e.currentTarget.value));
   };
-  const setStartValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setStartValue(Number(e.currentTarget.value));
+
+  const changeStartSettingsValueHandler = (
+    e: ChangeEvent<HTMLInputElement>
+  ) => {
+    changeStartSettingsValue(Number(e.currentTarget.value));
   };
 
   const setStartCounterValueHandler = () => {
-    setCounterSettings(maxValue, startValue);
+    setCounterSettings(maxSettingsValue, startSettingsValue);
   };
 
   return (
@@ -53,8 +55,8 @@ export const Settings: FC<SettingsType> = ({ setCounterSettings }) => {
           <input
             type="number"
             className={maxValueClasses}
-            value={maxValue}
-            onChange={setMaxValueHandler}
+            value={maxSettingsValue}
+            onChange={changeMaxSettingsValueHandler}
           />
         </label>
 
@@ -63,8 +65,8 @@ export const Settings: FC<SettingsType> = ({ setCounterSettings }) => {
           <input
             type="number"
             className={startValueClasses}
-            value={startValue}
-            onChange={setStartValueHandler}
+            value={startSettingsValue}
+            onChange={changeStartSettingsValueHandler}
           />
         </label>
       </div>

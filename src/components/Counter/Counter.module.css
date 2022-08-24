@@ -8,7 +8,15 @@
   font-size: 50px;
   font-weight: bold;
 }
-
+.instruction {
+  font-size: 21px;
+  color: #fff;
+}
+.instructionError {
+  color: #c20d7f;
+  font-weight: bold;
+  font-size: 21px;
+}
 /* set counter styles */
 
 .valueContainer {

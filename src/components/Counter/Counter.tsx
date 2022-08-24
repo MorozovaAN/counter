@@ -4,12 +4,14 @@ import commonS from "../СommonStyles.module.css";
 import { Button } from "../common/Button/Button";
 type CounterType = {
   count: number;
+  instruction: string;
   startCount: number;
   maxCount: number;
   setCounterValue: (value: number) => void;
 };
 export const Counter: FC<CounterType> = ({
   count,
+  instruction,
   startCount,
   maxCount,
   setCounterValue,
@@ -18,12 +20,14 @@ export const Counter: FC<CounterType> = ({
     localStorage.setItem("count", JSON.stringify(count));
   }, [count]);
 
-  const incDisabled = count === maxCount;
-  const resetDisabled = count === startCount;
+  const incDisabled = count === maxCount || instruction !== "";
+  const resetDisabled = count === startCount || instruction !== "";
 
-  const valueClasses = `${
-    count >= maxCount && count !== 0 ? s.limitValue : s.value
-  }`;
+  const valueClasses = instruction
+    ? `${
+        instruction === "Incorrect value!" ? s.instructionError : s.instruction
+      }`
+    : `${count >= maxCount && count !== 0 ? s.limitValue : s.value}`;
 
   const increment = () => {
     setCounterValue(count + 1);
@@ -32,11 +36,11 @@ export const Counter: FC<CounterType> = ({
   const reset = () => {
     setCounterValue(startCount);
   };
-
+  console.log(Boolean(""));
   return (
     <div className={commonS.container}>
       <div className={commonS.display}>
-        <p className={valueClasses}>{count}</p>
+        <p className={valueClasses}>{instruction ? instruction : count}</p>
       </div>
       <div className={commonS.buttonsContainer}>
         <Button title={"inc"} callBack={increment} disabled={incDisabled} />
