@@ -1,0 +1,38 @@
+.valueContainer {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+}
+.display {
+  display: grid;
+  height: 100px;
+  margin: 15px;
+  background: #1d82e8;
+  box-sizing: border-box;
+  border-radius: 10px;
+  padding: 15px;
+  row-gap: 10px;
+}
+.input {
+  width: 80px;
+  border-radius: 7px;
+  outline: none;
+  height: 26px;
+  text-align: center;
+  padding-left: 15px;
+  box-sizing: border-box;
+  color: #1d82e8;
+  font-weight: 600;
+  font-size: 20px;
+  border: 3px solid #48e855;
+}
+.valueTitle {
+  margin: 0;
+  color: #fff;
+  font-weight: 600;
+  font-size: 20px;
+}
+.incorrectValue {
+  color: #ff3b50;
+  border: 3px solid #ff5366;
+}

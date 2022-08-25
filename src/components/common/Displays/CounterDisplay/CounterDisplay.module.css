@@ -1,0 +1,19 @@
+.value {
+  color: #fff;
+  font-size: 40px;
+  margin: 0;
+}
+.limitValue {
+  color: #c20d7f;
+  font-size: 50px;
+  font-weight: bold;
+}
+.instruction {
+  font-size: 21px;
+  color: #fff;
+}
+.instructionError {
+  color: #c20d7f;
+  font-weight: bold;
+  font-size: 21px;
+}

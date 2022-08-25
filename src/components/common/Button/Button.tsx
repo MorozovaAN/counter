@@ -5,7 +5,6 @@ type ButtonType = {
   title: string;
   callBack: () => void;
   disabled: boolean;
-  // classes: string;
 };
 export const Button: FC<ButtonType> = ({ title, callBack, disabled }) => {
   const onClickHandler = () => {

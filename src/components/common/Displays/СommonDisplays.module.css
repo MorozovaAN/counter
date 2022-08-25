@@ -1,0 +1,10 @@
+.display {
+  height: 100px;
+  margin: 15px;
+  background: #1d82e8;
+  box-sizing: border-box;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

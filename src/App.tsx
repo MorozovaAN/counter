@@ -2,6 +2,7 @@ import s from "./App.module.css";
 import { Counter } from "./components/Counter/Counter";
 import { Settings } from "./components/Settings/Settings";
 import { useEffect, useState } from "react";
+import { CounterWithSettings } from "./components/CounterWithSettings/CounterWithSettings";
 
 type instructionType = "Incorrect value!" | "Enter values and press 'set'" | "";
 
@@ -35,10 +36,6 @@ export const App = () => {
   const [maxSettingsValue, setMaxSettingsValue] = useState(initMaxValue);
   const [startSettingsValue, setStartSettingsValue] = useState(initStartValue);
 
-  // const setCounterValue = (value: number) => {
-  //   setCount(value);
-  // };
-
   const setCounterSettings = (max: number, start: number) => {
     setInstruction("");
     setMaxCount(max);
@@ -67,24 +64,28 @@ export const App = () => {
   };
 
   return (
-    <>
-      <div className={s.container}>
-        {/*<h2>Version 1</h2>*/}
-        <Settings
-          maxSettingsValue={maxSettingsValue}
-          startSettingsValue={startSettingsValue}
-          setCounterSettings={setCounterSettings}
-          changeMaxSettingsValue={changeMaxSettingsValue}
-          changeStartSettingsValue={changeStartSettingsValue}
-        />
-        <Counter
-          count={count}
-          instruction={instruction}
-          startCount={startCount}
-          maxCount={maxCount}
-          setCount={setCount}
-        />
-      </div>
-    </>
+    <div className={s.container}>
+      <Settings
+        maxSettingsValue={maxSettingsValue}
+        startSettingsValue={startSettingsValue}
+        setCounterSettings={setCounterSettings}
+        changeMaxSettingsValue={changeMaxSettingsValue}
+        changeStartSettingsValue={changeStartSettingsValue}
+      />
+      <Counter
+        count={count}
+        instruction={instruction}
+        startCount={startCount}
+        maxCount={maxCount}
+        setCount={setCount}
+      />
+      <CounterWithSettings
+        count={count}
+        instruction={instruction}
+        maxCount={maxCount}
+        changeMaxSettingsValue={changeMaxSettingsValue}
+        changeStartSettingsValue={changeStartSettingsValue}
+      />
+    </div>
   );
 };
