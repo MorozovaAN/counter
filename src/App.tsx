@@ -3,6 +3,8 @@ import { Counter } from "./components/Counter/Counter";
 import { Settings } from "./components/Settings/Settings";
 import { useEffect, useState } from "react";
 
+type instructionType = "Incorrect value!" | "Enter values and press 'set'" | "";
+
 export const App = () => {
   const initStateCount = localStorage.getItem("count")
     ? Number(localStorage.getItem("count"))
@@ -24,7 +26,8 @@ export const App = () => {
   }
 
   const [count, setCount] = useState(initStateCount);
-  const [instruction, setInstruction] = useState(initInstruction);
+  const [instruction, setInstruction] =
+    useState<instructionType>(initInstruction);
 
   const [startCount, setStartCount] = useState(initStartCount);
   const [maxCount, setMaxCount] = useState(initMaxCount);
@@ -32,9 +35,9 @@ export const App = () => {
   const [maxSettingsValue, setMaxSettingsValue] = useState(initMaxValue);
   const [startSettingsValue, setStartSettingsValue] = useState(initStartValue);
 
-  const setCounterValue = (value: number) => {
-    setCount(value);
-  };
+  // const setCounterValue = (value: number) => {
+  //   setCount(value);
+  // };
 
   const setCounterSettings = (max: number, start: number) => {
     setInstruction("");
@@ -64,21 +67,24 @@ export const App = () => {
   };
 
   return (
-    <div className={s.container}>
-      <Settings
-        maxSettingsValue={maxSettingsValue}
-        startSettingsValue={startSettingsValue}
-        setCounterSettings={setCounterSettings}
-        changeMaxSettingsValue={changeMaxSettingsValue}
-        changeStartSettingsValue={changeStartSettingsValue}
-      />
-      <Counter
-        count={count}
-        instruction={instruction}
-        startCount={startCount}
-        maxCount={maxCount}
-        setCounterValue={setCounterValue}
-      />
-    </div>
+    <>
+      <div className={s.container}>
+        {/*<h2>Version 1</h2>*/}
+        <Settings
+          maxSettingsValue={maxSettingsValue}
+          startSettingsValue={startSettingsValue}
+          setCounterSettings={setCounterSettings}
+          changeMaxSettingsValue={changeMaxSettingsValue}
+          changeStartSettingsValue={changeStartSettingsValue}
+        />
+        <Counter
+          count={count}
+          instruction={instruction}
+          startCount={startCount}
+          maxCount={maxCount}
+          setCount={setCount}
+        />
+      </div>
+    </>
   );
 };

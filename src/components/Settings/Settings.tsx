@@ -28,10 +28,11 @@ export const Settings: FC<SettingsType> = (props) => {
       maxSettingsValue === Number(localStorage.getItem("maxValue")));
 
   const maxValueClasses =
-    maxSettingsValue < 1 ? `${s.input} ${s.incorrectValue}` : s.input;
+    maxSettingsValue < 1 || maxSettingsValue <= startSettingsValue
+      ? `${s.input} ${s.incorrectValue}`
+      : s.input;
   const startValueClasses =
-    startSettingsValue < 0 ||
-    (startSettingsValue >= maxSettingsValue && maxSettingsValue > 0)
+    startSettingsValue < 0 || startSettingsValue >= maxSettingsValue
       ? `${s.input} ${s.incorrectValue}`
       : s.input;
 

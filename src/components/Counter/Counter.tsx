@@ -2,19 +2,20 @@ import React, { FC, useEffect } from "react";
 import s from "./Counter.module.css";
 import commonS from "../СommonStyles.module.css";
 import { Button } from "../common/Button/Button";
+
 type CounterType = {
   count: number;
   instruction: string;
   startCount: number;
   maxCount: number;
-  setCounterValue: (value: number) => void;
+  setCount: (value: number) => void;
 };
 export const Counter: FC<CounterType> = ({
   count,
   instruction,
   startCount,
   maxCount,
-  setCounterValue,
+  setCount,
 }) => {
   useEffect(() => {
     localStorage.setItem("count", JSON.stringify(count));
@@ -30,11 +31,11 @@ export const Counter: FC<CounterType> = ({
     : `${count >= maxCount && count !== 0 ? s.limitValue : s.value}`;
 
   const increment = () => {
-    setCounterValue(count + 1);
+    setCount(count + 1);
   };
 
   const reset = () => {
-    setCounterValue(startCount);
+    setCount(startCount);
   };
   return (
     <div className={commonS.container}>
