@@ -6,9 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.render(
   <BrowserRouter>
-    <App />{" "}
+    <App />
   </BrowserRouter>,
   document.getElementById("root")
 );
-// Что надо написать вместо ххх,
-// чтобы при клике список заметок очищался?

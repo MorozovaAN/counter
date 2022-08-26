@@ -23,9 +23,7 @@ export const Settings: FC<SettingsType> = (props) => {
   const setDisabled =
     maxSettingsValue < 1 ||
     startSettingsValue < 0 ||
-    startSettingsValue >= maxSettingsValue ||
-    (startSettingsValue === Number(localStorage.getItem("startValue")) &&
-      maxSettingsValue === Number(localStorage.getItem("maxValue")));
+    startSettingsValue >= maxSettingsValue;
 
   const setStartCounterValueHandler = () => {
     setCounterSettings(maxSettingsValue, startSettingsValue);

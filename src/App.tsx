@@ -79,13 +79,7 @@ export const App = () => {
         maxCount={maxCount}
         setCount={setCount}
       />
-      <CounterWithSettings
-        count={count}
-        instruction={instruction}
-        maxCount={maxCount}
-        changeMaxSettingsValue={changeMaxSettingsValue}
-        changeStartSettingsValue={changeStartSettingsValue}
-      />
+      <CounterWithSettings />
     </div>
   );
 };

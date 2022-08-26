@@ -31,6 +31,7 @@ export const Counter: FC<CounterType> = ({
     <div className={commonS.container}>
       <CounterDisplay
         count={count}
+        countName={"count"}
         instruction={instruction}
         maxCount={maxCount}
       />

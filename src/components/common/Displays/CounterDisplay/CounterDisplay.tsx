@@ -4,17 +4,19 @@ import commonS from "../СommonDisplays.module.css";
 
 type CounterDisplayType = {
   count: number;
+  countName: string;
   instruction: string;
   maxCount: number;
 };
 
 export const CounterDisplay: FC<CounterDisplayType> = ({
   count,
+  countName,
   instruction,
   maxCount,
 }) => {
   useEffect(() => {
-    localStorage.setItem("count", JSON.stringify(count));
+    localStorage.setItem(countName, JSON.stringify(count));
   }, [count]);
 
   const valueClasses = instruction
