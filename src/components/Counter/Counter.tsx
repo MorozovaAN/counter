@@ -2,36 +2,29 @@ import React, { FC } from "react";
 import commonS from "../СommonStyles.module.css";
 import { Button } from "../common/Button/Button";
 import { CounterDisplay } from "../common/Displays/CounterDisplay/CounterDisplay";
+import { valuesType } from "../../reducers/counterReducer";
 
 type CounterType = {
-  count: number;
-  instruction: string;
-  startCount: number;
-  maxCount: number;
-  setCount: (value: number) => void;
+  values: valuesType;
+  setCount: (count: number) => void;
 };
-export const Counter: FC<CounterType> = ({
-  count,
-  instruction,
-  startCount,
-  maxCount,
-  setCount,
-}) => {
+export const Counter: FC<CounterType> = ({ values, setCount }) => {
+  const { count, instruction, startCount, maxCount } = values;
+
   const incDisabled = count === maxCount || instruction !== "";
   const resetDisabled = count === startCount || instruction !== "";
 
   const increment = () => {
-    setCount(count + 1);
+    setCount(values.count + 1);
   };
   const reset = () => {
-    setCount(startCount);
+    setCount(values.startCount);
   };
 
   return (
     <div className={commonS.container}>
       <CounterDisplay
         count={count}
-        countName={"count"}
         instruction={instruction}
         maxCount={maxCount}
       />
