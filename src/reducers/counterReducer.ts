@@ -8,17 +8,19 @@ export type valuesType = {
 };
 type actionType =
   | setCounterACType
+  | resetCounterACType
   | setCounterSettingsACType
   | changeMaxSettingsValueACType
   | changeStartSettingsValueType;
 type setCounterACType = ReturnType<typeof setCounterAC>;
+type resetCounterACType = ReturnType<typeof resetCounterAC>;
 type setCounterSettingsACType = ReturnType<typeof setCounterSettingsAC>;
 type changeMaxSettingsValueACType = ReturnType<typeof changeMaxSettingsValueAC>;
 type changeStartSettingsValueType = ReturnType<
   typeof changeStartSettingsValueAC
 >;
 
-export const valuesReducer = (
+export const counterReducer = (
   state: valuesType,
   action: actionType
 ): valuesType => {
@@ -26,14 +28,19 @@ export const valuesReducer = (
     case "SET-COUNTER":
       return {
         ...state,
-        count: action.count,
+        count: state.count + 1,
+      };
+    case "RESET-COUNTER":
+      return {
+        ...state,
+        count: state.startCount,
       };
     case "SET-COUNTER-SETTINGS":
       return {
         ...state,
-        count: action.start,
-        startCount: action.start,
-        maxCount: action.max,
+        startCount: state.startSettingsValue,
+        maxCount: state.maxSettingsValue,
+        count: state.startCount,
         instruction: "",
       };
     case "CHANGE-MAX-SETTINGS-VALUE":
@@ -59,17 +66,21 @@ export const valuesReducer = (
   }
 };
 
-export const setCounterAC = (count: number) => {
+export const setCounterAC = () => {
   return {
     type: "SET-COUNTER",
-    count,
   } as const;
 };
-export const setCounterSettingsAC = (max: number, start: number) => {
+
+export const resetCounterAC = () => {
+  return {
+    type: "RESET-COUNTER",
+  } as const;
+};
+
+export const setCounterSettingsAC = () => {
   return {
     type: "SET-COUNTER-SETTINGS",
-    max,
-    start,
   } as const;
 };
 

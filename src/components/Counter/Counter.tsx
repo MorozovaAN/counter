@@ -6,20 +6,14 @@ import { valuesType } from "../../reducers/counterReducer";
 
 type CounterType = {
   values: valuesType;
-  setCount: (count: number) => void;
+  setCount: () => void;
+  resetCount: () => void;
 };
-export const Counter: FC<CounterType> = ({ values, setCount }) => {
+export const Counter: FC<CounterType> = ({ values, setCount, resetCount }) => {
   const { count, instruction, startCount, maxCount } = values;
 
   const incDisabled = count === maxCount || instruction !== "";
   const resetDisabled = count === startCount || instruction !== "";
-
-  const increment = () => {
-    setCount(values.count + 1);
-  };
-  const reset = () => {
-    setCount(values.startCount);
-  };
 
   return (
     <div className={commonS.container}>
@@ -29,8 +23,12 @@ export const Counter: FC<CounterType> = ({ values, setCount }) => {
         maxCount={maxCount}
       />
       <div className={commonS.buttonsContainer}>
-        <Button title={"inc"} callBack={increment} disabled={incDisabled} />
-        <Button title={"reset"} callBack={reset} disabled={resetDisabled} />
+        <Button title={"inc"} callBack={setCount} disabled={incDisabled} />
+        <Button
+          title={"reset"}
+          callBack={resetCount}
+          disabled={resetDisabled}
+        />
       </div>
     </div>
   );

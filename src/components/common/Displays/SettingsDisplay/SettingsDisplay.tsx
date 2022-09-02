@@ -38,20 +38,20 @@ export const SettingsDisplay: FC<SettingsDisplayType> = ({
       <label className={s.valueContainer}>
         <span className={s.valueTitle}>max value:</span>
         <input
-          type="number"
-          className={maxValueClasses}
-          value={maxSettingsValue}
           onChange={changeMaxSettingsValueHandler}
+          value={maxSettingsValue}
+          className={maxValueClasses}
+          type="number"
         />
       </label>
 
       <label className={s.valueContainer}>
         <span className={s.valueTitle}>start value:</span>
         <input
-          type="number"
-          className={startValueClasses}
-          value={startSettingsValue}
           onChange={changeStartSettingsValueHandler}
+          value={startSettingsValue}
+          className={startValueClasses}
+          type="number"
         />
       </label>
     </div>

@@ -11,7 +11,7 @@ import {
   resetCounterAC,
   setCounterAC,
   setCounterSettingsAC,
-} from "../../reducers/CounterWithSettingsReducer";
+} from "../../reducers/counterV2Reducer";
 
 export const CounterWithSettings = () => {
   const [values, dispatchValues] = useReducer(counterV2Reducer, {

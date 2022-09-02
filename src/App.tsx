@@ -8,11 +8,12 @@ import {
   changeStartSettingsValueAC,
   setCounterAC,
   setCounterSettingsAC,
-  valuesReducer,
+  counterReducer,
+  resetCounterAC,
 } from "./reducers/counterReducer";
 
 export const App = () => {
-  const [values, dispatchValues] = useReducer(valuesReducer, {
+  const [values, dispatchValues] = useReducer(counterReducer, {
     count: 0,
     startCount: 0,
     maxCount: 0,
@@ -20,12 +21,15 @@ export const App = () => {
     startSettingsValue: 0,
     instruction: "Enter values and press 'set'",
   });
-  const setCount = (count: number) => {
-    dispatchValues(setCounterAC(count));
+  const setCount = () => {
+    dispatchValues(setCounterAC());
+  };
+  const resetCount = () => {
+    dispatchValues(resetCounterAC());
   };
 
-  const setCounterSettings = (max: number, start: number) => {
-    dispatchValues(setCounterSettingsAC(max, start));
+  const setCounterSettings = () => {
+    dispatchValues(setCounterSettingsAC());
   };
 
   const changeMaxSettingsValue = (value: number) => {
@@ -44,7 +48,7 @@ export const App = () => {
         changeMaxSettingsValue={changeMaxSettingsValue}
         changeStartSettingsValue={changeStartSettingsValue}
       />
-      <Counter values={values} setCount={setCount} />
+      <Counter values={values} setCount={setCount} resetCount={resetCount} />
       <CounterWithSettings />
     </div>
   );

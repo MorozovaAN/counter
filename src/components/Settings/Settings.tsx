@@ -6,7 +6,7 @@ import { valuesType } from "../../reducers/counterReducer";
 
 type SettingsType = {
   values: valuesType;
-  setCounterSettings: (max: number, start: number) => void;
+  setCounterSettings: () => void;
   changeMaxSettingsValue: (value: number) => void;
   changeStartSettingsValue: (value: number) => void;
 };
@@ -17,27 +17,25 @@ export const Settings: FC<SettingsType> = ({
   changeMaxSettingsValue,
   changeStartSettingsValue,
 }) => {
-  const setDisabled =
-    values.maxSettingsValue < 1 ||
-    values.startSettingsValue < 0 ||
-    values.startSettingsValue >= values.maxSettingsValue;
+  const { maxSettingsValue, startSettingsValue } = values;
 
-  const setStartCounterValueHandler = () => {
-    setCounterSettings(values.maxSettingsValue, values.startSettingsValue);
-  };
+  const setDisabled =
+    maxSettingsValue < 1 ||
+    startSettingsValue < 0 ||
+    startSettingsValue >= maxSettingsValue;
 
   return (
     <div className={commonS.container}>
       <SettingsDisplay
-        maxSettingsValue={values.maxSettingsValue}
-        startSettingsValue={values.startSettingsValue}
+        maxSettingsValue={maxSettingsValue}
+        startSettingsValue={startSettingsValue}
         changeMaxSettingsValue={changeMaxSettingsValue}
         changeStartSettingsValue={changeStartSettingsValue}
       />
       <div className={commonS.buttonsContainer}>
         <Button
           title={"set"}
-          callBack={setStartCounterValueHandler}
+          callBack={setCounterSettings}
           disabled={setDisabled}
         />
       </div>
