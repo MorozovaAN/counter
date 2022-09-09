@@ -1,44 +1,49 @@
-import React, { useReducer } from "react";
+import React from "react";
 import commonS from "../СommonStyles.module.css";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { CounterDisplay } from "../common/Displays/CounterDisplay/CounterDisplay";
 import { SettingsDisplay } from "../common/Displays/SettingsDisplay/SettingsDisplay";
 import { Button } from "../common/Button/Button";
 import {
-  changeMaxSettingsValueAC,
-  changeStartSettingsValueAC,
-  counterV2Reducer,
-  resetCounterAC,
-  setCounterAC,
-  setCounterSettingsAC,
-} from "../../reducers/counterV2Reducer";
+  changeMaxSettingsValueCounter2AC,
+  changeStartSettingsValueCounter2AC,
+  resetCounter2AC,
+  setCounter2AC,
+  setCounterSettingsCounter2AC,
+} from "../../store/reducers/counterV2Reducer";
+import { useDispatch, useSelector } from "react-redux";
+import { RootStateType, Counter2ValuesType } from "../../types";
 
-export const CounterWithSettings = () => {
-  const [values, dispatchValues] = useReducer(counterV2Reducer, {
-    count: 0,
-    startCount: 0,
-    maxCount: 0,
-    maxSettingsValue: 1,
-    startSettingsValue: 0,
-    instruction: "Click 'set' to set the values",
-  });
+export const CounterV2 = () => {
+  let counter2Values = useSelector<RootStateType, Counter2ValuesType>(
+    (state) => state.counterV2
+  );
+  const {
+    count,
+    startCount,
+    maxCount,
+    maxSettingsValue,
+    startSettingsValue,
+    instruction,
+  } = counter2Values;
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const setCounterSettings = () => {
     if (window.location.pathname === "/") {
       navigate("/set");
     } else {
-      dispatchValues(setCounterSettingsAC());
+      dispatch(setCounterSettingsCounter2AC());
       navigate("/");
     }
   };
 
   const changeMaxSettingsValue = (value: number) => {
-    dispatchValues(changeMaxSettingsValueAC(value));
+    dispatch(changeMaxSettingsValueCounter2AC(value));
   };
   const changeStartSettingsValue = (value: number) => {
-    dispatchValues(changeStartSettingsValueAC(value));
+    dispatch(changeStartSettingsValueCounter2AC(value));
   };
 
   let setDisabled;
@@ -46,21 +51,19 @@ export const CounterWithSettings = () => {
     setDisabled = false;
   } else {
     setDisabled =
-      values.maxSettingsValue < 1 ||
-      values.startSettingsValue < 0 ||
-      values.startSettingsValue >= values.maxSettingsValue;
+      maxSettingsValue < 1 ||
+      startSettingsValue < 0 ||
+      startSettingsValue >= maxSettingsValue;
   }
 
-  const incDisabled =
-    values.count === values.maxCount || values.instruction !== "";
-  const resetDisabled =
-    values.count === values.startCount || values.instruction !== "";
+  const incDisabled = count === maxCount || instruction !== "";
+  const resetDisabled = count === startCount || instruction !== "";
 
   const increment = () => {
-    dispatchValues(setCounterAC());
+    dispatch(setCounter2AC());
   };
   const reset = () => {
-    dispatchValues(resetCounterAC());
+    dispatch(resetCounter2AC());
   };
 
   return (
@@ -70,9 +73,9 @@ export const CounterWithSettings = () => {
           path={"/"}
           element={
             <CounterDisplay
-              count={values.count}
-              instruction={values.instruction}
-              maxCount={values.maxCount}
+              count={count}
+              instruction={instruction}
+              maxCount={maxCount}
             />
           }
         />
@@ -80,8 +83,8 @@ export const CounterWithSettings = () => {
           path={"/set"}
           element={
             <SettingsDisplay
-              maxSettingsValue={values.maxSettingsValue}
-              startSettingsValue={values.startSettingsValue}
+              maxSettingsValue={maxSettingsValue}
+              startSettingsValue={startSettingsValue}
               changeMaxSettingsValue={changeMaxSettingsValue}
               changeStartSettingsValue={changeStartSettingsValue}
             />

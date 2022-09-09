@@ -1,55 +1,12 @@
 import s from "./App.module.css";
-import { Counter } from "./components/Counter/Counter";
-import { Settings } from "./components/Settings/Settings";
-import { useReducer } from "react";
-import { CounterWithSettings } from "./components/CounterWithSettings/CounterWithSettings";
-import {
-  changeMaxSettingsValueAC,
-  changeStartSettingsValueAC,
-  setCounterAC,
-  setCounterSettingsAC,
-  counterReducer,
-  resetCounterAC,
-} from "./reducers/counterReducer";
+import { CounterV2 } from "./components/CounterV2/CounterV2";
+import { CounterV1 } from "./components/CounterV1/CounterV1";
 
 export const App = () => {
-  const [values, dispatchValues] = useReducer(counterReducer, {
-    count: 0,
-    startCount: 0,
-    maxCount: 0,
-    maxSettingsValue: 1,
-    startSettingsValue: 0,
-    instruction: "Enter values and press 'set'",
-  });
-  const setCount = () => {
-    dispatchValues(setCounterAC());
-  };
-  const resetCount = () => {
-    dispatchValues(resetCounterAC());
-  };
-
-  const setCounterSettings = () => {
-    dispatchValues(setCounterSettingsAC());
-  };
-
-  const changeMaxSettingsValue = (value: number) => {
-    dispatchValues(changeMaxSettingsValueAC(value));
-  };
-
-  const changeStartSettingsValue = (value: number) => {
-    dispatchValues(changeStartSettingsValueAC(value));
-  };
-
   return (
     <div className={s.container}>
-      <Settings
-        values={values}
-        setCounterSettings={setCounterSettings}
-        changeMaxSettingsValue={changeMaxSettingsValue}
-        changeStartSettingsValue={changeStartSettingsValue}
-      />
-      <Counter values={values} setCount={setCount} resetCount={resetCount} />
-      <CounterWithSettings />
+      <CounterV1 />
+      <CounterV2 />
     </div>
   );
 };
