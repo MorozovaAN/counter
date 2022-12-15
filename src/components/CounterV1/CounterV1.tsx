@@ -3,7 +3,7 @@ import {
   changeMaxSettingsValueCounter1AC,
   changeStartSettingsValueCounter1AC,
   resetCounter1AC,
-  setCounter1AC,
+  increaseCounter1AC,
   setCounter1SettingsAC,
 } from "../../store/reducers/counterV1Reducer";
 import commonS from "../СommonStyles.module.css";
@@ -30,8 +30,8 @@ export const CounterV1 = () => {
 
   const dispatch = useDispatch();
 
-  const setCount = () => {
-    dispatch(setCounter1AC());
+  const increaseCount = () => {
+    dispatch(increaseCounter1AC());
   };
   const resetCount = () => {
     dispatch(resetCounter1AC());
@@ -81,7 +81,11 @@ export const CounterV1 = () => {
           maxCount={maxCount}
         />
         <div className={commonS.buttonsContainer}>
-          <Button title={"inc"} callBack={setCount} disabled={incDisabled} />
+          <Button
+            title={"inc"}
+            callBack={increaseCount}
+            disabled={incDisabled}
+          />
           <Button
             title={"reset"}
             callBack={resetCount}
