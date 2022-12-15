@@ -14,7 +14,7 @@ export const counterV2Reducer = (
   action: actionTypeCounter2
 ): Counter2ValuesType => {
   switch (action.type) {
-    case "SET-COUNTER2":
+    case "INCREASE-COUNTER2":
       return {
         ...state,
         count: state.count + 1,
@@ -48,9 +48,9 @@ export const counterV2Reducer = (
 };
 
 //action creators
-export const setCounter2AC = () => {
+export const increaseCounter2AC = () => {
   return {
-    type: "SET-COUNTER2",
+    type: "INCREASE-COUNTER2",
   } as const;
 };
 

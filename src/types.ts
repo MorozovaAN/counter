@@ -3,14 +3,14 @@ import {
   changeMaxSettingsValueCounter2AC,
   changeStartSettingsValueCounter2AC,
   resetCounter2AC,
-  setCounter2AC,
+  increaseCounter2AC,
   setCounterSettingsCounter2AC,
 } from "./store/reducers/counterV2Reducer";
 import {
   changeMaxSettingsValueCounter1AC,
   changeStartSettingsValueCounter1AC,
   resetCounter1AC,
-  setCounter1AC,
+  increaseCounter1AC,
   setCounter1SettingsAC,
 } from "./store/reducers/counterV1Reducer";
 
@@ -31,7 +31,7 @@ export type actionTypeCounter1 =
   | setCounterSettingsCounter1ACType
   | changeMaxSettingsValueCounter1ACType
   | changeStartSettingsValueCounter1Type;
-type setCounter1ACType = ReturnType<typeof setCounter1AC>;
+type setCounter1ACType = ReturnType<typeof increaseCounter1AC>;
 type resetCounter1ACType = ReturnType<typeof resetCounter1AC>;
 type setCounterSettingsCounter1ACType = ReturnType<
   typeof setCounter1SettingsAC
@@ -58,7 +58,7 @@ export type actionTypeCounter2 =
   | setCounterSettingsCounter2ACType
   | changeMaxSettingsValueCounter2ACType
   | changeStartSettingsValueCounter2Type;
-type setCounter2ACType = ReturnType<typeof setCounter2AC>;
+type setCounter2ACType = ReturnType<typeof increaseCounter2AC>;
 type setCounterSettingsCounter2ACType = ReturnType<
   typeof setCounterSettingsCounter2AC
 >;

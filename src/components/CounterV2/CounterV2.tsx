@@ -8,7 +8,7 @@ import {
   changeMaxSettingsValueCounter2AC,
   changeStartSettingsValueCounter2AC,
   resetCounter2AC,
-  setCounter2AC,
+  increaseCounter2AC,
   setCounterSettingsCounter2AC,
 } from "../../store/reducers/counterV2Reducer";
 import { useDispatch, useSelector } from "react-redux";
@@ -60,7 +60,7 @@ export const CounterV2 = () => {
   const resetDisabled = count === startCount || instruction !== "";
 
   const increment = () => {
-    dispatch(setCounter2AC());
+    dispatch(increaseCounter2AC());
   };
   const reset = () => {
     dispatch(resetCounter2AC());
