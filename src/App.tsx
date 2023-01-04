@@ -6,7 +6,7 @@ export const App = () => {
   return (
     <div className={s.container}>
       <CounterV1 />
-      <CounterV2 />
+      {/*<CounterV2 />*/}
     </div>
   );
 };

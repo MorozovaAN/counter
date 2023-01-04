@@ -1,56 +1,53 @@
-import React from "react";
-import {
-  changeMaxSettingsValueCounter1AC,
-  changeStartSettingsValueCounter1AC,
-  resetCounter1AC,
-  increaseCounter1AC,
-  setCounter1SettingsAC,
-} from "../../store/reducers/counterV1Reducer";
 import commonS from "../СommonStyles.module.css";
 import { CounterDisplay } from "../common/Displays/CounterDisplay/CounterDisplay";
 import { Button } from "../common/Button/Button";
 import { useDispatch, useSelector } from "react-redux";
-
 import { SettingsDisplay } from "../common/Displays/SettingsDisplay/SettingsDisplay";
-import { RootStateType, Counter1ValuesType } from "../../types";
+import { RootStateType } from "../../store/store";
+import {
+  changeMaxValue,
+  changeStartValue,
+  CounterV1Type,
+  increment,
+  reset,
+  setSettings,
+} from "../../store/reducers/counterV1Slice";
 
 export const CounterV1 = () => {
-  let counter1Values = useSelector<RootStateType, Counter1ValuesType>(
+  const counter1Values = useSelector<RootStateType, CounterV1Type>(
     (state) => state.counterV1
   );
-
   const {
-    count,
-    startCount,
-    maxCount,
+    value,
+    startValue,
+    maxValue,
     maxSettingsValue,
     startSettingsValue,
     instruction,
   } = { ...counter1Values };
-
   const dispatch = useDispatch();
 
-  const increaseCount = () => {
-    dispatch(increaseCounter1AC());
+  const incrementCount = () => {
+    dispatch(increment());
   };
   const resetCount = () => {
-    dispatch(resetCounter1AC());
+    dispatch(reset());
   };
 
   const setCounterSettings = () => {
-    dispatch(setCounter1SettingsAC());
+    dispatch(setSettings());
   };
 
   const changeMaxSettingsValue = (value: number) => {
-    dispatch(changeMaxSettingsValueCounter1AC(value));
+    dispatch(changeMaxValue({ value }));
   };
 
   const changeStartSettingsValue = (value: number) => {
-    dispatch(changeStartSettingsValueCounter1AC(value));
+    dispatch(changeStartValue({ value }));
   };
 
-  const incDisabled = count === maxCount || instruction !== "";
-  const resetDisabled = count === startCount || instruction !== "";
+  const incDisabled = value === maxValue || instruction !== "";
+  const resetDisabled = value === startValue || instruction !== "";
 
   const setDisabled =
     maxSettingsValue < 1 ||
@@ -76,14 +73,14 @@ export const CounterV1 = () => {
       </div>
       <div className={commonS.container}>
         <CounterDisplay
-          count={count}
+          count={value}
           instruction={instruction}
-          maxCount={maxCount}
+          maxCount={maxValue}
         />
         <div className={commonS.buttonsContainer}>
           <Button
             title={"inc"}
-            callBack={increaseCount}
+            callBack={incrementCount}
             disabled={incDisabled}
           />
           <Button

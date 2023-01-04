@@ -1,6 +1,6 @@
-import { actionTypeCounter2, Counter2ValuesType } from "../../types";
+//import { actionTypeCounter2, Counter2ValuesType } from "../../types";
 
-const initialState: Counter2ValuesType = {
+const initialState: any = {
   count: 0,
   startCount: 0,
   maxCount: 0,
@@ -9,10 +9,7 @@ const initialState: Counter2ValuesType = {
   instruction: "Click 'set' to set the values",
 };
 
-export const counterV2Reducer = (
-  state = initialState,
-  action: actionTypeCounter2
-): Counter2ValuesType => {
+export const counterV2Reducer = (state = initialState, action: any): any => {
   switch (action.type) {
     case "INCREASE-COUNTER2":
       return {

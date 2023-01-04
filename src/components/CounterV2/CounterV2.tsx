@@ -12,12 +12,9 @@ import {
   setCounterSettingsCounter2AC,
 } from "../../store/reducers/counterV2Reducer";
 import { useDispatch, useSelector } from "react-redux";
-import { RootStateType, Counter2ValuesType } from "../../types";
 
 export const CounterV2 = () => {
-  let counter2Values = useSelector<RootStateType, Counter2ValuesType>(
-    (state) => state.counterV2
-  );
+  let counter2Values = useSelector<any, any>((state) => state.counterV2);
   const {
     count,
     startCount,
