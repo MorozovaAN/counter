@@ -4,21 +4,25 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import { CounterDisplay } from "../common/Displays/CounterDisplay/CounterDisplay";
 import { SettingsDisplay } from "../common/Displays/SettingsDisplay/SettingsDisplay";
 import { Button } from "../common/Button/Button";
-import {
-  changeMaxSettingsValueCounter2AC,
-  changeStartSettingsValueCounter2AC,
-  resetCounter2AC,
-  increaseCounter2AC,
-  setCounterSettingsCounter2AC,
-} from "../../store/reducers/counterV2Reducer";
 import { useDispatch, useSelector } from "react-redux";
+import { RootStateType } from "../../store/store";
+import {
+  changeMaxValue,
+  changeStartValue,
+  CounterV2Type,
+  increment,
+  reset,
+  setSettings,
+} from "../../store/slices/counterV2Reducer";
 
 export const CounterV2 = () => {
-  let counter2Values = useSelector<any, any>((state) => state.counterV2);
+  let counter2Values = useSelector<RootStateType, CounterV2Type>(
+    (state) => state.counterV2
+  );
   const {
-    count,
-    startCount,
-    maxCount,
+    value,
+    startValue,
+    maxValue,
     maxSettingsValue,
     startSettingsValue,
     instruction,
@@ -31,16 +35,16 @@ export const CounterV2 = () => {
     if (window.location.pathname === "/") {
       navigate("/set");
     } else {
-      dispatch(setCounterSettingsCounter2AC());
+      dispatch(setSettings());
       navigate("/");
     }
   };
 
   const changeMaxSettingsValue = (value: number) => {
-    dispatch(changeMaxSettingsValueCounter2AC(value));
+    dispatch(changeMaxValue({ value }));
   };
   const changeStartSettingsValue = (value: number) => {
-    dispatch(changeStartSettingsValueCounter2AC(value));
+    dispatch(changeStartValue({ value }));
   };
 
   let setDisabled;
@@ -53,14 +57,15 @@ export const CounterV2 = () => {
       startSettingsValue >= maxSettingsValue;
   }
 
-  const incDisabled = count === maxCount || instruction !== "";
-  const resetDisabled = count === startCount || instruction !== "";
+  const incDisabled = value === maxValue || instruction !== "";
+  const resetDisabled = value === startValue || instruction !== "";
 
-  const increment = () => {
-    dispatch(increaseCounter2AC());
+  const incrementCount = () => {
+    dispatch(increment());
   };
-  const reset = () => {
-    dispatch(resetCounter2AC());
+
+  const resetCount = () => {
+    dispatch(reset());
   };
 
   return (
@@ -70,9 +75,9 @@ export const CounterV2 = () => {
           path={"/"}
           element={
             <CounterDisplay
-              count={count}
+              count={value}
               instruction={instruction}
-              maxCount={maxCount}
+              maxCount={maxValue}
             />
           }
         />
@@ -91,8 +96,16 @@ export const CounterV2 = () => {
       <div className={commonS.buttonsContainer}>
         {window.location.pathname === "/" && (
           <>
-            <Button title={"inc"} callBack={increment} disabled={incDisabled} />
-            <Button title={"reset"} callBack={reset} disabled={resetDisabled} />
+            <Button
+              title={"inc"}
+              callBack={incrementCount}
+              disabled={incDisabled}
+            />
+            <Button
+              title={"reset"}
+              callBack={resetCount}
+              disabled={resetDisabled}
+            />
           </>
         )}
 

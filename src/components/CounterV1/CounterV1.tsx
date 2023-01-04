@@ -11,7 +11,7 @@ import {
   increment,
   reset,
   setSettings,
-} from "../../store/reducers/counterV1Slice";
+} from "../../store/slices/counterV1Slice";
 
 export const CounterV1 = () => {
   const counter1Values = useSelector<RootStateType, CounterV1Type>(
@@ -24,7 +24,7 @@ export const CounterV1 = () => {
     maxSettingsValue,
     startSettingsValue,
     instruction,
-  } = { ...counter1Values };
+  } = counter1Values;
   const dispatch = useDispatch();
 
   const incrementCount = () => {
