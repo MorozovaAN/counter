@@ -13,10 +13,11 @@ import {
   increment,
   reset,
   setSettings,
-} from "../../store/slices/counterV2Reducer";
+} from "../../store/slices/counterV2Slice";
+import { decrement } from "../../store/slices/counterV1Slice";
 
 export const CounterV2 = () => {
-  let counter2Values = useSelector<RootStateType, CounterV2Type>(
+  const counter2Values = useSelector<RootStateType, CounterV2Type>(
     (state) => state.counterV2
   );
   const {
@@ -58,10 +59,15 @@ export const CounterV2 = () => {
   }
 
   const incDisabled = value === maxValue || instruction !== "";
+  const decDisabled = value === startValue || instruction !== "";
   const resetDisabled = value === startValue || instruction !== "";
 
   const incrementCount = () => {
     dispatch(increment());
+  };
+
+  const decrementCount = () => {
+    dispatch(decrement());
   };
 
   const resetCount = () => {
@@ -97,9 +103,14 @@ export const CounterV2 = () => {
         {window.location.pathname === "/" && (
           <>
             <Button
-              title={"inc"}
+              title={"+"}
               callBack={incrementCount}
               disabled={incDisabled}
+            />
+            <Button
+              title={"−"}
+              callBack={decrementCount}
+              disabled={decDisabled}
             />
             <Button
               title={"reset"}

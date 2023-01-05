@@ -25,6 +25,9 @@ export const counterV1Slice = createSlice({
     increment: (state) => {
       state.value += 1;
     },
+    decrement: (state) => {
+      state.value -= 1;
+    },
     reset: (state) => {
       state.value = state.startValue;
     },
@@ -55,6 +58,7 @@ export const counterV1Slice = createSlice({
 
 export const {
   increment,
+  decrement,
   reset,
   setSettings,
   changeMaxValue,

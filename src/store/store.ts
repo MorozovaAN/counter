@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import counterV1Reducer from "./slices/counterV1Slice";
-import counterV2Reducer from "./slices/counterV2Reducer";
+import counterV2Reducer from "./slices/counterV2Slice";
 import { loadState, saveState } from "../helpers/localstorage";
 
 export const store = configureStore({

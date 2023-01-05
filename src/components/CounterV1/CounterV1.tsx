@@ -8,6 +8,7 @@ import {
   changeMaxValue,
   changeStartValue,
   CounterV1Type,
+  decrement,
   increment,
   reset,
   setSettings,
@@ -30,6 +31,9 @@ export const CounterV1 = () => {
   const incrementCount = () => {
     dispatch(increment());
   };
+  const decrementCount = () => {
+    dispatch(decrement());
+  };
   const resetCount = () => {
     dispatch(reset());
   };
@@ -47,6 +51,7 @@ export const CounterV1 = () => {
   };
 
   const incDisabled = value === maxValue || instruction !== "";
+  const decDisabled = value === startValue || instruction !== "";
   const resetDisabled = value === startValue || instruction !== "";
 
   const setDisabled =
@@ -79,9 +84,14 @@ export const CounterV1 = () => {
         />
         <div className={commonS.buttonsContainer}>
           <Button
-            title={"inc"}
+            title={"+"}
             callBack={incrementCount}
             disabled={incDisabled}
+          />
+          <Button
+            title={"−"}
+            callBack={decrementCount}
+            disabled={decDisabled}
           />
           <Button
             title={"reset"}
