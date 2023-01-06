@@ -5,6 +5,7 @@ export type CounterV2Type = {
   maxValue: number;
   maxSettingsValue: number;
   startSettingsValue: number;
+  settings: boolean;
   instruction: "Click 'set' to set the values" | "";
 };
 
@@ -14,6 +15,7 @@ const initialState: CounterV2Type = {
   maxValue: 0,
   maxSettingsValue: 1,
   startSettingsValue: 0,
+  settings: false,
   instruction: "Click 'set' to set the values",
 };
 export const counterV2Slice = createSlice({
@@ -41,6 +43,9 @@ export const counterV2Slice = createSlice({
     changeStartValue: (state, action) => {
       state.startSettingsValue = action.payload.value;
     },
+    toggleSettings: (state) => {
+      state.settings = !state.settings;
+    },
   },
 });
 
@@ -51,6 +56,7 @@ export const {
   setSettings,
   changeMaxValue,
   changeStartValue,
+  toggleSettings,
 } = counterV2Slice.actions;
 
 export default counterV2Slice.reducer;

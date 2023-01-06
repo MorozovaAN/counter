@@ -1,3 +1,7 @@
+.container {
+  display: flex;
+  column-gap: 70px;
+}
 .value {
   color: #fff;
   font-size: 40px;

@@ -6,22 +6,17 @@ type SettingsDisplayType = {
   startSettingsValue: number;
   changeMaxSettingsValue: (value: number) => void;
   changeStartSettingsValue: (value: number) => void;
+
+  valueWrong: boolean;
 };
 export const SettingsDisplay: FC<SettingsDisplayType> = ({
   maxSettingsValue,
   startSettingsValue,
   changeMaxSettingsValue,
   changeStartSettingsValue,
+  valueWrong,
 }) => {
-  const maxValueClasses =
-    maxSettingsValue < 1 || maxSettingsValue <= startSettingsValue
-      ? `${s.input} ${s.incorrectValue}`
-      : s.input;
-
-  const startValueClasses =
-    startSettingsValue < 0 || startSettingsValue >= maxSettingsValue
-      ? `${s.input} ${s.incorrectValue}`
-      : s.input;
+  const valueClasses = valueWrong ? `${s.input} ${s.incorrectValue}` : s.input;
 
   const changeMaxSettingsValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
     changeMaxSettingsValue(Number(e.currentTarget.value));
@@ -40,7 +35,7 @@ export const SettingsDisplay: FC<SettingsDisplayType> = ({
         <input
           onChange={changeMaxSettingsValueHandler}
           value={maxSettingsValue}
-          className={maxValueClasses}
+          className={valueClasses}
           type="number"
         />
       </label>
@@ -50,7 +45,7 @@ export const SettingsDisplay: FC<SettingsDisplayType> = ({
         <input
           onChange={changeStartSettingsValueHandler}
           value={startSettingsValue}
-          className={startValueClasses}
+          className={valueClasses}
           type="number"
         />
       </label>

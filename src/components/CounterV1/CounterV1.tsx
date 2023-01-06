@@ -1,4 +1,5 @@
 import commonS from "../СommonStyles.module.css";
+import s from "./CounterV1.module.css";
 import { CounterDisplay } from "../common/Displays/CounterDisplay/CounterDisplay";
 import { Button } from "../common/Button/Button";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,6 +15,7 @@ import {
   setSettings,
 } from "../../store/slices/counterV1Slice";
 
+//todo исключить дробные числа
 export const CounterV1 = () => {
   const counter1Values = useSelector<RootStateType, CounterV1Type>(
     (state) => state.counterV1
@@ -53,6 +55,11 @@ export const CounterV1 = () => {
   const incDisabled = value === maxValue || instruction !== "";
   const decDisabled = value === startValue || instruction !== "";
   const resetDisabled = value === startValue || instruction !== "";
+  //написать для каждого отдельно условие неправильного значения и перенести все в редакс
+  const valueWrong =
+    maxSettingsValue < 1 ||
+    startSettingsValue < 0 ||
+    startSettingsValue >= maxSettingsValue;
 
   const setDisabled =
     maxSettingsValue < 1 ||
@@ -60,13 +67,14 @@ export const CounterV1 = () => {
     startSettingsValue >= maxSettingsValue;
 
   return (
-    <>
+    <div className={s.container}>
       <div className={commonS.container}>
         <SettingsDisplay
           maxSettingsValue={maxSettingsValue}
           startSettingsValue={startSettingsValue}
           changeMaxSettingsValue={changeMaxSettingsValue}
           changeStartSettingsValue={changeStartSettingsValue}
+          valueWrong={valueWrong}
         />
         <div className={commonS.buttonsContainer}>
           <Button
@@ -100,6 +108,6 @@ export const CounterV1 = () => {
           />
         </div>
       </div>
-    </>
+    </div>
   );
 };

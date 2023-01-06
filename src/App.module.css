@@ -1,7 +1,10 @@
 .container {
-  display: flex;
-  gap: 100px;
-  justify-content: center;
+  margin: 20px 0;
   align-items: center;
-  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 50px;
+}
+.title {
+  text-align: center;
 }

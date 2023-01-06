@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import commonS from "../СommonStyles.module.css";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import s from "./CounterV2.module.css";
 import { CounterDisplay } from "../common/Displays/CounterDisplay/CounterDisplay";
 import { SettingsDisplay } from "../common/Displays/SettingsDisplay/SettingsDisplay";
 import { Button } from "../common/Button/Button";
@@ -11,11 +11,15 @@ import {
   changeStartValue,
   CounterV2Type,
   increment,
+  decrement,
   reset,
   setSettings,
+  toggleSettings,
 } from "../../store/slices/counterV2Slice";
-import { decrement } from "../../store/slices/counterV1Slice";
 
+//todo: 1. - исключить дробные числа - чтоб нельзя было ввести,
+// 2. подсветить ошибку если стартовое число равно или больше максимального
+// 3. написать в заголовке, что этот счетчик для отрицательных и положительных целых чисел
 export const CounterV2 = () => {
   const counter2Values = useSelector<RootStateType, CounterV2Type>(
     (state) => state.counterV2
@@ -26,41 +30,32 @@ export const CounterV2 = () => {
     maxValue,
     maxSettingsValue,
     startSettingsValue,
+    settings,
     instruction,
   } = counter2Values;
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+
+  const setDisabled = settings && startSettingsValue >= maxSettingsValue;
+  const incDisabled = value === maxValue || instruction !== "";
+  const decDisabled = value === startValue || instruction !== "";
+  const resetDisabled = value === startValue || instruction !== "";
+  const valueWrong = startSettingsValue >= maxSettingsValue;
 
   const setCounterSettings = () => {
-    if (window.location.pathname === "/") {
-      navigate("/set");
-    } else {
+    if (settings) {
       dispatch(setSettings());
-      navigate("/");
     }
+    dispatch(toggleSettings());
   };
 
   const changeMaxSettingsValue = (value: number) => {
     dispatch(changeMaxValue({ value }));
   };
+
   const changeStartSettingsValue = (value: number) => {
     dispatch(changeStartValue({ value }));
   };
-
-  let setDisabled;
-  if (window.location.pathname === "/") {
-    setDisabled = false;
-  } else {
-    setDisabled =
-      maxSettingsValue < 1 ||
-      startSettingsValue < 0 ||
-      startSettingsValue >= maxSettingsValue;
-  }
-
-  const incDisabled = value === maxValue || instruction !== "";
-  const decDisabled = value === startValue || instruction !== "";
-  const resetDisabled = value === startValue || instruction !== "";
 
   const incrementCount = () => {
     dispatch(increment());
@@ -76,31 +71,24 @@ export const CounterV2 = () => {
 
   return (
     <div className={commonS.container}>
-      <Routes>
-        <Route
-          path={"/"}
-          element={
-            <CounterDisplay
-              count={value}
-              instruction={instruction}
-              maxCount={maxValue}
-            />
-          }
+      {settings ? (
+        <SettingsDisplay
+          maxSettingsValue={maxSettingsValue}
+          startSettingsValue={startSettingsValue}
+          changeMaxSettingsValue={changeMaxSettingsValue}
+          changeStartSettingsValue={changeStartSettingsValue}
+          valueWrong={valueWrong}
         />
-        <Route
-          path={"/set"}
-          element={
-            <SettingsDisplay
-              maxSettingsValue={maxSettingsValue}
-              startSettingsValue={startSettingsValue}
-              changeMaxSettingsValue={changeMaxSettingsValue}
-              changeStartSettingsValue={changeStartSettingsValue}
-            />
-          }
+      ) : (
+        <CounterDisplay
+          count={value}
+          instruction={instruction}
+          maxCount={maxValue}
         />
-      </Routes>
+      )}
+
       <div className={commonS.buttonsContainer}>
-        {window.location.pathname === "/" && (
+        {!settings && (
           <>
             <Button
               title={"+"}
@@ -119,7 +107,6 @@ export const CounterV2 = () => {
             />
           </>
         )}
-
         <Button
           title={"set"}
           callBack={setCounterSettings}
